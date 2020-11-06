@@ -12,13 +12,14 @@
 
 Name:           jemalloc
 Version:        5.1.0
-Release:        3
+Release:        4
 Summary:        General-purpose scalable concurrent malloc implementation
 License:        BSD
 URL:            http://www.canonware.com/jemalloc/
 Source0:        https://github.com/jemalloc/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  libxslt perl-generators
+Requires:       %{name}-help = %{version}-%{release}
 
 %description
 Implemented by malloc (3), is an independent implementation of jemalloc.
@@ -81,5 +82,8 @@ make check
 %{_mandir}/man3/jemalloc.3*
 
 %changelog
+* Fri Nov 06 2020 leiju<leiju4@huawei.com> - 5.1.0-4
+- Add Requires jemalloc-help into jemalloc
+
 * Thu Nov 14 2019 wangye<wangye54@huawei.com> - 5.1.0-3
 - Package init
