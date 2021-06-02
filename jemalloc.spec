@@ -12,13 +12,13 @@
 
 Name:           jemalloc
 Version:        5.1.0
-Release:        3
+Release:        4
 Summary:        General-purpose scalable concurrent malloc implementation
 License:        BSD
 URL:            http://www.canonware.com/jemalloc/
 Source0:        https://github.com/jemalloc/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 
-BuildRequires:  libxslt perl-generators
+BuildRequires:  libxslt perl-generators gcc
 
 %description
 Implemented by malloc (3), is an independent implementation of jemalloc.
@@ -81,5 +81,8 @@ make check
 %{_mandir}/man3/jemalloc.3*
 
 %changelog
+* Wed Jun 02 2021 wulei <wulei80@huawei.com> - 5.1.0-4
+- fixes failed: no acceptable C compiler found in $PATH
+
 * Thu Nov 14 2019 wangye<wangye54@huawei.com> - 5.1.0-3
 - Package init
