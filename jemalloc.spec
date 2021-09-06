@@ -11,8 +11,8 @@
 %endif
 
 Name:           jemalloc
-Version:        5.1.0
-Release:        4
+Version:        5.2.1
+Release:        1
 Summary:        General-purpose scalable concurrent malloc implementation
 License:        BSD
 URL:            http://www.canonware.com/jemalloc/
@@ -81,6 +81,9 @@ make check
 %{_mandir}/man3/jemalloc.3*
 
 %changelog
+* Tue Jul 20 2021 weidong <weidong@uniontech.com> - 5.2.1-1
+- Update jemlloc
+
 * Wed Jun 02 2021 wulei <wulei80@huawei.com> - 5.1.0-4
 - fixes failed: no acceptable C compiler found in $PATH
 
