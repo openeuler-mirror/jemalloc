@@ -12,12 +12,13 @@
 
 Name:           jemalloc
 Version:        5.2.1
-Release:        1
+Release:        2
 Summary:        General-purpose scalable concurrent malloc implementation
 License:        BSD
 URL:            http://www.canonware.com/jemalloc/
 Source0:        https://github.com/jemalloc/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 
+Patch1:         backport-Jemalloc-5.2.1-patch-1-fix-large-bin-index-accessed-through-cache-bin-descriptor.patch
 BuildRequires:  libxslt perl-generators gcc
 
 %description
@@ -81,6 +82,9 @@ make check
 %{_mandir}/man3/jemalloc.3*
 
 %changelog
+* Wed Nov 3 2021 guominghong <guominghong@huawei.com> - 5.2.1-1
+- Fix large bin index accessed through cache bin descriptor
+
 * Tue Jul 20 2021 weidong <weidong@uniontech.com> - 5.2.1-1
 - Update jemlloc
 
