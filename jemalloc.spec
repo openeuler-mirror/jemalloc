@@ -12,7 +12,7 @@
 
 Name:           jemalloc
 Version:        5.2.1
-Release:        4
+Release:        5
 Summary:        General-purpose scalable concurrent malloc implementation
 License:        BSD
 URL:            http://www.canonware.com/jemalloc/
@@ -50,10 +50,8 @@ uname -a
 %make_build
 
 %check
-%if %{?_with_check:1}%{!?_with_check:0}
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test %{?_smp_mflags}
 make check
-%endif
 
 %install
 %make_install
@@ -84,6 +82,9 @@ make check
 %{_mandir}/man3/jemalloc.3*
 
 %changelog
+* Thu Dec 2 2021 guominghong <guominghong@huawei.com> - 5.2.1-5
+- Fix spec check
+
 * Tue Nov 16 2021 guominghong <guominghong@huawei.com> - 5.2.1-4
 - Fix tcaches mutex pre-post fork handling
 
