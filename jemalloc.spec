@@ -11,13 +11,16 @@
 %endif
 
 Name:           jemalloc
-Version:        5.1.0
-Release:        4
+Version:        5.2.1
+Release:        1
 Summary:        General-purpose scalable concurrent malloc implementation
 License:        BSD
 URL:            http://www.canonware.com/jemalloc/
 Source0:        https://github.com/jemalloc/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 
+Patch1:         backport-Jemalloc-5.2.1-patch-1-fix-large-bin-index-accessed-through-cache-bin-descriptor.patch
+Patch2:         backport-Jemalloc-5.2.1-patch-2-fix-undefined-behavior-in-hash.patch
+Patch3:         backport-Jemalloc-5.2.1-patch-3-fix-tcaches-mutex-pre-post-fork-handling.patch
 BuildRequires:  libxslt perl-generators gcc
 
 %description
@@ -47,10 +50,8 @@ uname -a
 %make_build
 
 %check
-%if %{?_with_check:1}%{!?_with_check:0}
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test %{?_smp_mflags}
 make check
-%endif
 
 %install
 %make_install
@@ -81,6 +82,9 @@ make check
 %{_mandir}/man3/jemalloc.3*
 
 %changelog
+* Thu Dec 30 2021 xigaoxinyan <xigaoxinyan@huawei.com> - 5.2.1-1
+- Update jemlloc
+
 * Wed Jun 02 2021 wulei <wulei80@huawei.com> - 5.1.0-4
 - fixes failed: no acceptable C compiler found in $PATH
 
