@@ -12,9 +12,9 @@
 
 Name:           jemalloc
 Version:        5.2.1
-Release:        5
+Release:        6
 Summary:        General-purpose scalable concurrent malloc implementation
-License:        BSD
+License:        BSD-2-Clause
 URL:            http://www.canonware.com/jemalloc/
 Source0:        https://github.com/jemalloc/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 
@@ -82,6 +82,9 @@ make check
 %{_mandir}/man3/jemalloc.3*
 
 %changelog
+* Tue May 10 2022 Ge Wang <wangge@h-partner.com> - 5.2.1-6
+- License compliance rectification
+
 * Thu Dec 2 2021 guominghong <guominghong@huawei.com> - 5.2.1-5
 - Fix spec check
 
