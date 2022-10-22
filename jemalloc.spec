@@ -12,7 +12,7 @@
 
 Name:           jemalloc
 Version:        5.2.1
-Release:        1
+Release:        2
 Summary:        General-purpose scalable concurrent malloc implementation
 License:        BSD
 URL:            http://www.canonware.com/jemalloc/
@@ -82,6 +82,9 @@ make check
 %{_mandir}/man3/jemalloc.3*
 
 %changelog
+* Fri Oct 21 2022 wuzx<wuzx1226@qq.com> - 5.2.1-2
+- add sw64 patch
+
 * Thu Dec 30 2021 xigaoxinyan <xigaoxinyan@huawei.com> - 5.2.1-1
 - Update jemlloc
 
