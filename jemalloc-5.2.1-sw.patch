@@ -1,0 +1,59 @@
+diff -Naur jemalloc-5.2.1.org/build-aux/config.guess jemalloc-5.2.1.sw/build-aux/config.guess
+--- jemalloc-5.2.1.org/build-aux/config.guess	2019-08-05 20:02:00.000000000 +0000
++++ jemalloc-5.2.1.sw/build-aux/config.guess	2022-02-25 06:55:20.420000000 +0000
+@@ -915,6 +945,15 @@
+ 	UNAME_MACHINE=aarch64_be
+ 	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
+ 	exit ;;
++    sw_64:Linux:*:*)
++        case `sed -n '/^cpu model/s/^.*: \(.*\)/\1/p' < /proc/cpuinfo` in
++          SW6A)  UNAME_MACHINE=sw_64sw6a ;;
++          SW6B)  UNAME_MACHINE=sw_64sw6b ;;
++        esac
++        objdump --private-headers /bin/sh | grep -q ld.so.1
++        if test "$?" = 0 ; then LIBC=gnulibc1 ; fi
++        echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
++        exit ;;
+     alpha:Linux:*:*)
+ 	case `sed -n '/^cpu model/s/^.*: \(.*\)/\1/p' < /proc/cpuinfo` in
+ 	  EV5)   UNAME_MACHINE=alphaev5 ;;
+@@ -1391,6 +1430,7 @@
+ 	UNAME_MACHINE=`(uname -p) 2>/dev/null`
+ 	case "${UNAME_MACHINE}" in
+ 	    A*) echo alpha-dec-vms ; exit ;;
++            S*) echo sw_64-dec-vms ; exit ;;
+ 	    I*) echo ia64-dec-vms ; exit ;;
+ 	    V*) echo vax-dec-vms ; exit ;;
+ 	esac ;;
+diff -Naur jemalloc-5.2.1.org/build-aux/config.sub jemalloc-5.2.1.sw/build-aux/config.sub
+--- jemalloc-5.2.1.org/build-aux/config.sub	2019-08-05 20:02:00.000000000 +0000
++++ jemalloc-5.2.1.sw/build-aux/config.sub	2022-02-25 06:55:20.420000000 +0000
+@@ -250,6 +250,7 @@
+ 	| aarch64 | aarch64_be \
+ 	| alpha | alphaev[4-8] | alphaev56 | alphaev6[78] | alphapca5[67] \
+ 	| alpha64 | alpha64ev[4-8] | alpha64ev56 | alpha64ev6[78] | alpha64pca5[67] \
++	| sw_64 | sw_64sw6a | sw_64sw6b \
+ 	| am33_2.0 \
+ 	| arc | arceb \
+ 	| arm | arm[bl]e | arme[lb] | armv[2-8] | armv[3-8][lb] | armv7[arm] \
+@@ -375,6 +376,7 @@
+ 	| alpha-* | alphaev[4-8]-* | alphaev56-* | alphaev6[78]-* \
+ 	| alpha64-* | alpha64ev[4-8]-* | alpha64ev56-* | alpha64ev6[78]-* \
+ 	| alphapca5[67]-* | alpha64pca5[67]-* | arc-* | arceb-* \
++	| sw_64-* | sw_64sw6a-* | sw_64sw6b-* \
+ 	| arm-*  | armbe-* | armle-* | armeb-* | armv*-* \
+ 	| avr-* | avr32-* \
+ 	| ba-* \
+diff -Naur jemalloc-5.2.1.org/include/jemalloc/internal/quantum.h jemalloc-5.2.1.sw/include/jemalloc/internal/quantum.h
+--- jemalloc-5.2.1.org/include/jemalloc/internal/quantum.h	2019-08-05 20:02:00.000000000 +0000
++++ jemalloc-5.2.1.sw/include/jemalloc/internal/quantum.h	2022-02-25 06:55:20.440000000 +0000
+@@ -15,6 +15,9 @@
+ #  ifdef __alpha__
+ #    define LG_QUANTUM		4
+ #  endif
++#  ifdef __sw_64__
++#    define LG_QUANTUM          4
++#  endif
+ #  if (defined(__sparc64__) || defined(__sparcv9) || defined(__sparc_v9__))
+ #    define LG_QUANTUM		4
+ #  endif
