@@ -21,6 +21,7 @@ Source0:        https://github.com/jemalloc/%{name}/releases/download/%{version}
 Patch1:         backport-Jemalloc-5.2.1-patch-1-fix-large-bin-index-accessed-through-cache-bin-descriptor.patch
 Patch2:         backport-Jemalloc-5.2.1-patch-2-fix-undefined-behavior-in-hash.patch
 Patch3:         backport-Jemalloc-5.2.1-patch-3-fix-tcaches-mutex-pre-post-fork-handling.patch
+Patch4:         mstflint-4.10.0-sw.patch
 BuildRequires:  libxslt perl-generators gcc
 
 %description
@@ -41,6 +42,9 @@ The help package contains manual pages and other related files for jemalloc.
 
 %prep
 %autosetup -p1
+%ifnarch sw_64
+%patch4 -R -p1
+%endif
 
 %build
 export LDFLAGS="%{?__global_ldflags} -lrt"
