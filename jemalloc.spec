@@ -41,9 +41,12 @@ Summary:        help for jemalloc.
 The help package contains manual pages and other related files for jemalloc.
 
 %prep
-%autosetup -p1
-%ifnarch sw_64
-%patch4 -R -p1
+%setup
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%ifarch sw_64
+%patch4 -p1
 %endif
 
 %build
