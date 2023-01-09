@@ -12,7 +12,7 @@
 
 Name:           jemalloc
 Version:        5.2.1
-Release:        7
+Release:        8
 Summary:        General-purpose scalable concurrent malloc implementation
 License:        BSD-2-Clause
 URL:            http://www.canonware.com/jemalloc/
@@ -22,6 +22,9 @@ Patch1:         backport-Jemalloc-5.2.1-patch-1-fix-large-bin-index-accessed-thr
 Patch2:         backport-Jemalloc-5.2.1-patch-2-fix-undefined-behavior-in-hash.patch
 Patch3:         backport-Jemalloc-5.2.1-patch-3-fix-tcaches-mutex-pre-post-fork-handling.patch
 Patch4:         0001-jemalloc-5.2.1-add-loongarch-support.patch
+
+Patch6000:      backport-0001-Correct-tsd-layout-graph.patch
+
 BuildRequires:  libxslt perl-generators gcc
 
 %description
@@ -48,6 +51,7 @@ The help package contains manual pages and other related files for jemalloc.
 %ifarch loongarch64
 %patch4 -p1
 %endif
+%patch6000 -p1
 
 %build
 export LDFLAGS="%{?__global_ldflags} -lrt"
@@ -89,6 +93,9 @@ make check
 %{_mandir}/man3/jemalloc.3*
 
 %changelog
+* Mon Jan 9 2023 mengwenhua <mengwenhua@xfusion.com> - 5.2.1-8
+- Correct tsd layout graph
+
 * Tue Nov 15 2022 doupengda <doupengda@loongson.cn> - 5.2.1-7
 - add loongarch64 support
 
