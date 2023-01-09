@@ -12,7 +12,7 @@
 
 Name:           jemalloc
 Version:        5.2.1
-Release:        1
+Release:        2
 Summary:        General-purpose scalable concurrent malloc implementation
 License:        BSD
 URL:            http://www.canonware.com/jemalloc/
@@ -21,6 +21,9 @@ Source0:        https://github.com/jemalloc/%{name}/releases/download/%{version}
 Patch1:         backport-Jemalloc-5.2.1-patch-1-fix-large-bin-index-accessed-through-cache-bin-descriptor.patch
 Patch2:         backport-Jemalloc-5.2.1-patch-2-fix-undefined-behavior-in-hash.patch
 Patch3:         backport-Jemalloc-5.2.1-patch-3-fix-tcaches-mutex-pre-post-fork-handling.patch
+
+Patch6000:      backport-0001-Correct-tsd-layout-graph.patch
+
 BuildRequires:  libxslt perl-generators gcc
 
 %description
@@ -82,6 +85,9 @@ make check
 %{_mandir}/man3/jemalloc.3*
 
 %changelog
+* Mon Jan 9 2023 mengwenhua <mengwenhua@xfusion.com> - 5.2.1-2
+- Correct tsd layout graph
+
 * Thu Dec 30 2021 xigaoxinyan <xigaoxinyan@huawei.com> - 5.2.1-1
 - Update jemlloc
 
