@@ -11,20 +11,15 @@
 %endif
 
 Name:           jemalloc
-Version:        5.2.1
-Release:        2
+Version:        5.3.0
+Release:        1
 Summary:        General-purpose scalable concurrent malloc implementation
-License:        BSD
+License:        BSD-2-Clause
 URL:            http://www.canonware.com/jemalloc/
 Source0:        https://github.com/jemalloc/%{name}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 
-Patch1:         backport-Jemalloc-5.2.1-patch-1-fix-large-bin-index-accessed-through-cache-bin-descriptor.patch
-Patch2:         backport-Jemalloc-5.2.1-patch-2-fix-undefined-behavior-in-hash.patch
-Patch3:         backport-Jemalloc-5.2.1-patch-3-fix-tcaches-mutex-pre-post-fork-handling.patch
 
-Patch6000:      backport-0001-Correct-tsd-layout-graph.patch
-
-BuildRequires:  libxslt perl-generators gcc
+BuildRequires:  perl-generators gcc /usr/bin/xsltproc
 
 %description
 Implemented by malloc (3), is an independent implementation of jemalloc.
@@ -43,7 +38,7 @@ Summary:        help for jemalloc.
 The help package contains manual pages and other related files for jemalloc.
 
 %prep
-%autosetup -p1
+%setup -q
 
 %build
 export LDFLAGS="%{?__global_ldflags} -lrt"
@@ -85,10 +80,31 @@ make check
 %{_mandir}/man3/jemalloc.3*
 
 %changelog
-* Mon Jan 9 2023 mengwenhua <mengwenhua@xfusion.com> - 5.2.1-2
+* Tue Mar 07 2023 mawenshuo <mawenshuo1@huawei.com> - 5.3.0-1
+- Upgrade to 5.3.0
+
+* Mon Jan 9 2023 mengwenhua <mengwenhua@xfusion.com> - 5.2.1-8
 - Correct tsd layout graph
 
-* Thu Dec 30 2021 xigaoxinyan <xigaoxinyan@huawei.com> - 5.2.1-1
+* Tue Nov 15 2022 doupengda <doupengda@loongson.cn> - 5.2.1-7
+- add loongarch64 support
+
+* Tue May 10 2022 Ge Wang <wangge@h-partner.com> - 5.2.1-6
+- License compliance rectification
+
+* Thu Dec 2 2021 guominghong <guominghong@huawei.com> - 5.2.1-5
+- Fix spec check
+
+* Tue Nov 16 2021 guominghong <guominghong@huawei.com> - 5.2.1-4
+- Fix tcaches mutex pre-post fork handling
+
+* Tue Nov 16 2021 guominghong <guominghong@huawei.com> - 5.2.1-3
+- Fix Undefined Behavior in hash.h
+
+* Wed Nov 3 2021 guominghong <guominghong@huawei.com> - 5.2.1-2
+- Fix large bin index accessed through cache bin descriptor
+
+* Tue Jul 20 2021 weidong <weidong@uniontech.com> - 5.2.1-1
 - Update jemlloc
 
 * Wed Jun 02 2021 wulei <wulei80@huawei.com> - 5.1.0-4
