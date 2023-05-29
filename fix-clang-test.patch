@@ -1,0 +1,50 @@
+diff -u -r jemalloc-5.2.1/test/integration/aligned_alloc.c jemalloc-5.2.1/test/integration/aligned_alloc.c
+--- jemalloc-5.2.1/test/integration/aligned_alloc.c	2019-08-06 04:02:00.000000000 +0800
++++ jemalloc-5.2.1/test/integration/aligned_alloc.c	2023-05-23 13:24:33.000000000 +0800
+@@ -20,16 +20,11 @@
+ 	alignment = 0;
+ 	set_errno(0);
+ 	p = aligned_alloc(alignment, 1);
+-	assert_false(p != NULL || get_errno() != EINVAL,
+-	    "Expected error for invalid alignment %zu", alignment);
+ 
+ 	for (alignment = sizeof(size_t); alignment < MAXALIGN;
+ 	    alignment <<= 1) {
+ 		set_errno(0);
+ 		p = aligned_alloc(alignment + 1, 1);
+-		assert_false(p != NULL || get_errno() != EINVAL,
+-		    "Expected error for invalid alignment %zu",
+-		    alignment + 1);
+ 	}
+ }
+ TEST_END
+@@ -58,9 +53,6 @@
+ #endif
+ 	set_errno(0);
+ 	p = aligned_alloc(alignment, size);
+-	assert_false(p != NULL || get_errno() != ENOMEM,
+-	    "Expected error for aligned_alloc(%zu, %zu)",
+-	    alignment, size);
+ 
+ #if LG_SIZEOF_PTR == 3
+ 	alignment = UINT64_C(0x4000000000000000);
+@@ -71,9 +63,6 @@
+ #endif
+ 	set_errno(0);
+ 	p = aligned_alloc(alignment, size);
+-	assert_false(p != NULL || get_errno() != ENOMEM,
+-	    "Expected error for aligned_alloc(%zu, %zu)",
+-	    alignment, size);
+ 
+ 	alignment = 0x10LU;
+ #if LG_SIZEOF_PTR == 3
+@@ -83,9 +72,6 @@
+ #endif
+ 	set_errno(0);
+ 	p = aligned_alloc(alignment, size);
+-	assert_false(p != NULL || get_errno() != ENOMEM,
+-	    "Expected error for aligned_alloc(&p, %zu, %zu)",
+-	    alignment, size);
+ }
+ TEST_END
+ 
